@@ -13,7 +13,7 @@ public class CardValidator : AbstractValidator<CreateCardRequest>
             .NotEmpty()
             .Length(15)
             .Must(IsValidCardNumber).WithMessage("'{PropertyName}' should be all numbers")
-            .Must(n => dbContext.Card.FirstOrDefault(c => c.CardNumber == n) == null)
+            .Must(n => dbContext.Cards.FirstOrDefault(c => c.CardNumber == n) == null)
                 .WithMessage("'{PropertyName}' already registered.");
     }
     
