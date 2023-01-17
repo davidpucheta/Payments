@@ -1,8 +1,10 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Payments.Data;
 using Payments.Services.Abstractions;
 using Payments.Services.Implementations;
+using Payments.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IFeeService, FeeService>();
 
+builder.Services.AddAuthentication("BasicAuthentication")
+    .AddScheme<AuthenticationSchemeOptions, UserValidator>("BasicAuthentication", null);
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -32,6 +40,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

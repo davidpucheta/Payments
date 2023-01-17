@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Payments.Data;
@@ -13,6 +14,7 @@ namespace Payments.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class CardController : ControllerBase
 {
     private readonly ApplicationDbContext _applicationDbContext;
