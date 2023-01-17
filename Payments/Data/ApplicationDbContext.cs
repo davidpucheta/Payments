@@ -5,7 +5,7 @@ namespace Payments.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<Card> Card { get; set; }
+    public DbSet<Card> Cards { get; set; }
     
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
