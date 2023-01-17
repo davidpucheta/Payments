@@ -3,3 +3,6 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+Payments/Data/app.db
+Payments/Data/app.db-shm
+Payments/Data/app.db-wal
