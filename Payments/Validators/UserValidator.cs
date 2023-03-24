@@ -3,7 +3,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
-using Payments.Model.Data;
+using Model.Model.Data;
 using Repositories;
 
 namespace Payments.Validators;

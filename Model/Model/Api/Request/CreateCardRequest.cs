@@ -1,4 +1,4 @@
-﻿namespace Payments.Model.Api.Request;
+﻿namespace Model.Model.Api.Request;
 
 public class CreateCardRequest
 {

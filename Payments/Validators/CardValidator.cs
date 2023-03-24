@@ -1,6 +1,6 @@
 ﻿using Data.Data;
 using FluentValidation;
-using Payments.Model.Api.Request;
+using Model.Model.Api.Request;
 
 namespace Payments.Validators;
 

@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Payments.Model.Data;
-using System.Runtime.CompilerServices;
-using Data.Data;
+﻿using Data.Data;
+using Microsoft.EntityFrameworkCore;
+using Model.Model.Data;
 
 namespace Repositories
 {

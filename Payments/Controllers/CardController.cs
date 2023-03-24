@@ -3,9 +3,9 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Payments.Model.Api.Request;
-using Payments.Model.Api.Response;
-using Payments.Model.Data;
+using Model.Model.Api.Request;
+using Model.Model.Api.Response;
+using Model.Model.Data;
 using Payments.Services.Abstractions;
 using Repositories;
 
@@ -21,7 +21,7 @@ public class CardController : ControllerBase
     private readonly IValidator<CreateCardRequest> _validator;
     private readonly IRepository<Card> _cardRepository;
 
-    public CardController(IMapper mapper, IValidator<CreateCardRequest> validator, IFeeService feeService, IRepository<Card> cardRepository, IRepository<User> userRepository)
+    public CardController(IMapper mapper, IValidator<CreateCardRequest> validator, IFeeService feeService, IRepository<Card> cardRepository)
     {
         _mapper = mapper;
         _validator = validator;

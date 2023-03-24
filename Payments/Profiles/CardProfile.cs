@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Payments.Model.Api.Request;
-using Payments.Model.Api.Response;
-using Payments.Model.Data;
+using Model.Model.Api.Request;
+using Model.Model.Api.Response;
+using Model.Model.Data;
 
 namespace Payments.Profiles;
 

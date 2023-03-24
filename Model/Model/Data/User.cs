@@ -1,4 +1,4 @@
-﻿namespace Payments.Model.Data;
+﻿namespace Model.Model.Data;
 
 public class User
 {

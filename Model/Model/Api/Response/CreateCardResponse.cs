@@ -1,4 +1,4 @@
-﻿namespace Payments.Model.Api.Response;
+﻿namespace Model.Model.Api.Response;
 
 public class CreateCardResponse
 {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Payments.Model.Data;
+using Model.Model.Data;
 
 namespace Data.Data;
 

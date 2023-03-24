@@ -2,7 +2,7 @@ using Data.Data;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Payments.Model.Data;
+using Model.Model.Data;
 using Payments.Services.Abstractions;
 using Payments.Services.Implementations;
 using Payments.Validators;
