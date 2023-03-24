@@ -9,3 +9,4 @@ Payments/Data/app.db-wal
 Data/Data/app.db
 Data/Data/app.db-shm
 Data/Data/app.db-wal
+/.vs/Payments
