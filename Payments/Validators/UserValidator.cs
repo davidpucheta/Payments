@@ -3,32 +3,33 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
-using Payments.Data;
+using Payments.Model.Data;
+using Repositories;
 
 namespace Payments.Validators;
 
 public class UserValidator : AuthenticationHandler<AuthenticationSchemeOptions>
 {
-    private readonly ApplicationDbContext _applicationDbContext;
-
+    private readonly IRepository<User> _userRepository;
+    
     public UserValidator(
         IOptionsMonitor<AuthenticationSchemeOptions> options,
         ILoggerFactory logger,
         UrlEncoder encoder,
-        ISystemClock clock,
-        ApplicationDbContext applicationDbContext) : base(options, logger, encoder, clock)
+        ISystemClock clock, IRepository<User> userRepository) : base(options, logger, encoder, clock)
     {
-        _applicationDbContext = applicationDbContext;
+        _userRepository = userRepository;
     }
 
-    private bool Login(string userName, string password)
+    private async Task<bool> Login(string userName, string password)
     {
-        var user = _applicationDbContext.Users.FirstOrDefault(u => u.UserName == userName);
-
+        var users = await _userRepository.GetAllAsync();
+        var user = users.FirstOrDefault(u => u.UserName == userName);
+        
         return user != null && user.Password == password;
     }
 
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         var authHeader = Request.Headers["Authorization"].ToString();
         if (authHeader.StartsWith("basic", StringComparison.OrdinalIgnoreCase))
@@ -36,23 +37,23 @@ public class UserValidator : AuthenticationHandler<AuthenticationSchemeOptions>
             var token = authHeader.Substring("Basic ".Length).Trim();
             var credentialsString = Encoding.UTF8.GetString(Convert.FromBase64String(token));
             var credentials = credentialsString.Split(':');
-            if (Login(credentials[0], credentials[1]))
+            if (await Login(credentials[0], credentials[1]))
             {
                 var claims = new[] { new Claim("name", credentials[0]), new Claim(ClaimTypes.Role, "Admin") };
                 var identity = new ClaimsIdentity(claims, "Basic");
                 var claimsPrincipal = new ClaimsPrincipal(identity);
-                return Task.FromResult(AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name)));
+                return await Task.FromResult(AuthenticateResult.Success(new AuthenticationTicket(claimsPrincipal, Scheme.Name)));
             }
 
             Response.StatusCode = 401;
             Response.Headers.Add("WWW-Authenticate", "Basic realm=\"payments.api\"");
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
         }
         else
         {
             Response.StatusCode = 401;
             Response.Headers.Add("WWW-Authenticate", "Basic realm=\"payments.api\"");
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
         }
     }
 }

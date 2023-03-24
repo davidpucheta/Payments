@@ -6,3 +6,6 @@ riderModule.iml
 Payments/Data/app.db
 Payments/Data/app.db-shm
 Payments/Data/app.db-wal
+Data/Data/app.db
+Data/Data/app.db-shm
+Data/Data/app.db-wal

@@ -1,10 +1,12 @@
+using Data.Data;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
-using Payments.Data;
+using Payments.Model.Data;
 using Payments.Services.Abstractions;
 using Payments.Services.Implementations;
 using Payments.Validators;
+using Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IFeeService, FeeService>();
+builder.Services.AddScoped<IRepository<Card>, CardRepository>();
+builder.Services.AddScoped<IRepository<User>, UserRepository>();
 
 builder.Services.AddAuthentication("BasicAuthentication")
     .AddScheme<AuthenticationSchemeOptions, UserValidator>("BasicAuthentication", null);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Payments.Model.Data;
 
-namespace Payments.Data;
+namespace Data.Data;
 
 public class ApplicationDbContext : DbContext
 {
